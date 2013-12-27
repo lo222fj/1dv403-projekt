@@ -1,15 +1,37 @@
-html{
+html {
 	background-image: url("tomat_img_0411.jpg");
-	background-size:cover;
+	background-size: cover;
 }
-main{
+main {
 	overflow: auto;
 }
-footer{
+footer {
 	background-color: #13300A;
 	border-top: groove;
-	height: 2.8em;
+	height: 3.5em;
 	margin: 0;
-	position: absolute; bottom: 0; left: 0; right: 0;
-	
+	padding: 0 0.5em 0 0.5em;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
+.icons {
+
+	display: block;
+	text-decoration: none;
+	width: 4em;
+	padding: 0;
+	margin: 0;
+	vertical-align: middle;
+	border: red inset 2px;
+}
+.iconImg {
+	padding: 0;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 0.3em;
+	border: #ffffff groove 0.3em;
+	}
+
