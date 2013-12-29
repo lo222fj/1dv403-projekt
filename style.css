@@ -1,11 +1,15 @@
 html {
+	height: 100%;
 	background-image: url("tomat_img_0411.jpg");
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
 	background-size: cover;
 }
 main {
 	overflow: auto;
 }
-footer {
+#mainFooter {
 	background-color: #13300A;
 	border-top: groove;
 	height: 3.5em;
@@ -17,7 +21,6 @@ footer {
 	right: 0;
 }
 .icons {
-
 	display: block;
 	text-decoration: none;
 	width: 4em;
@@ -33,5 +36,40 @@ footer {
 	margin-right: auto;
 	border-radius: 0.3em;
 	border: #ffffff groove 0.3em;
-	}
+}
+
+/*Fönster för att välja bakgrund*/
+#chooseBackgroundWindow {
+	width: 15em;
+	border: outset #ffffff 0.2em;
+	background-color: #f0f0f0;
+	border-radius: 0.5em;
+	overflow: auto;
+	margin: 0;
+	padding: 0;
+}
+.headerChooseBackgroundWindow{
+	height: 3em;
+	background-color: #13300A;
+	border-bottom: groove;
+	padding: 0.5em;
+}
+.iconChooseBackgroundWindow{
+	height: 2.5em;
+	border-radius: 0.2em;
+	border: #ffffff double 0.1em;
+}
+.headerTextChoosenBackgroundWindow{
+	color: #ffffff;
+	font-size: 1.1em;
+	font-style: italic;
+	font-weight: bold;
+	margin-left: 0.3em;
+	vertical-align: top;
+}
+.footerChooseBackgroundWindow {
+	height: 2em;
+	background-color: #13300A;
+	border-top: groove;
+}
 
