@@ -40,9 +40,11 @@ main {
 
 /*Fönster för att välja bakgrund*/
 #chooseBackgroundWindow {
-	width: 15em;
+	width: 20em;
+	max-height: 35em;
+	overflow: auto;
 	border: outset #ffffff 0.2em;
-	background-color: #f0f0f0;
+	background-color: #FFFACD;
 	border-radius: 0.5em;
 	overflow: auto;
 	margin: 0;
@@ -66,6 +68,14 @@ main {
 	font-weight: bold;
 	margin-left: 0.3em;
 	vertical-align: top;
+}
+.imageDivs{
+	display: inline-block;
+	background-color: #f0f0f0;
+	margin: 0.2em;
+}
+.imgsToChoose{
+	vertical-align: middle;
 }
 .footerChooseBackgroundWindow {
 	height: 2em;
