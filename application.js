@@ -14,34 +14,51 @@ var backgroundChanger = {
             var iconChooseBackground = $("<img class='iconChooseBackgroundWindow' src='icon_DSC00846.png'/>");
             var headerTextChooseBackground = $("<span class='headerTextChoosenBackgroundWindow'>Välj bakgrundsbild</span>");
 
-            //lägger ut elementen i DOMen  
+            //lägger ut elementen i DOMen
             $("main").append(divChooseBackground);
             divChooseBackground.append(headerChooseBackground);
             headerChooseBackground.append(iconChooseBackground);
             headerChooseBackground.append(headerTextChooseBackground);
             divChooseBackground.append(mainChooseBackground);
             divChooseBackground.append(footerChooseBackground);
-            
-            var callback = function(respons){
-                var jsonStr = respons;
-                var images = JSON.parse(jsonStr);
+
+            //Läser in json-sträng, parsar och presenterar tumnagelbilder i fönstret
+            var callback = function(respons) {
+                var images = JSON.parse(respons);
                 var i;
-                
-                for(i = 0; i<images.length; i +=1){
-                var thumbSrc = images[i].thumbURL;
-                console.log(thumbSrc);
-                var img = $("<img class='imgsToChoose' src='"+thumbSrc+"' />");
-                
-                var thumbDiv = $("<div class='imageDivs'></div>");
-                thumbDiv.append(img);
-                mainChooseBackground.append(thumbDiv);
+
+                /*Skapar en img-tag i en a-tag för varje tumnagebild som lästs in med json
+                 Varje a-tag läggs i en div*/
+                for ( i = 0; i < images.length; i += 1) {
+                    var thumbSrc = images[i].thumbURL;
+                    var a = $("<a class ='aAroundImgsToChoose' href='#' title='Välj som bakgrund'></a>");
+                    var img = $("<img class='imgsToChoose' src='" + thumbSrc + "' />");
+                    var thumbDiv = $("<div class='imageDivs'></div>");
+
+                    thumbDiv.append(a);
+                    a.append(img);
+                    mainChooseBackground.append(thumbDiv);
                 }
+                //Hittar högsta höjd och bredd bland tumnagelbilderna
+                var heights = images.map(function(image) {
+                    return image.thumbHeight;
+                });
+                var highestImg = Math.max.apply(Math, heights);
+                console.log(heights);
+                console.log(highestImg);
                 
-             };
-            
+                var widths = images.map(function(image) {
+                    return image.thumbWidth;
+                });
+                var widestImg = Math.max.apply(Math, widths)
+                console.log(widths);
+                console.log(widestImg);
+                
+            };
+
             new AjaxCon("http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/", callback);
         });
-        
+
     }
 };
 window.onload = function() {
