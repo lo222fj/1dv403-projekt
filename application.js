@@ -27,32 +27,34 @@ var backgroundChanger = {
                 var images = JSON.parse(respons);
                 var i;
 
-                /*Skapar en img-tag i en a-tag för varje tumnagebild som lästs in med json
-                 Varje a-tag läggs i en div*/
-                for ( i = 0; i < images.length; i += 1) {
-                    var thumbSrc = images[i].thumbURL;
-                    var a = $("<a class ='aAroundImgsToChoose' href='#' title='Välj som bakgrund'></a>");
-                    var img = $("<img class='imgsToChoose' src='" + thumbSrc + "' />");
-                    var thumbDiv = $("<div class='imageDivs'></div>");
-
-                    thumbDiv.append(a);
-                    a.append(img);
-                    mainChooseBackground.append(thumbDiv);
-                }
-                //Hittar högsta höjd och bredd bland tumnagelbilderna
+//Hittar högsta höjd och bredd bland tumnagelbilderna
                 var heights = images.map(function(image) {
                     return image.thumbHeight;
                 });
                 var highestImg = Math.max.apply(Math, heights);
-                console.log(heights);
-                console.log(highestImg);
                 
                 var widths = images.map(function(image) {
                     return image.thumbWidth;
                 });
                 var widestImg = Math.max.apply(Math, widths)
-                console.log(widths);
-                console.log(widestImg);
+              
+                /*Skapar en img-tag i en a-tag för varje tumnagebild som lästs in med json
+                 Varje a-tag läggs i en div*/
+                for ( i = 0; i < images.length; i += 1) {
+                    var thumbSrc = images[i].thumbURL;
+                    var a = $("<a class ='aAroundImgsToChoose' href='#' title='Välj som bakgrund'></a>");
+                    var string ="<img class='imgsToChoose' src='" + thumbSrc + "'  />";
+                    console.log(string);
+                    var img = $(string);
+                    var divString="<div class='imageDivs' style='height: "+highestImg+"px ;width: "+widestImg+"px' ></div>";
+                    console.log(divString);
+                    var thumbDiv = $(divString);
+
+                    thumbDiv.append(a);
+                    a.append(img);
+                    mainChooseBackground.append(thumbDiv);
+                }
+                
                 
             };
 

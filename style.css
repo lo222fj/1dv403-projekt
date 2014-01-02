@@ -41,12 +41,11 @@ main {
 /*Fönster för att välja bakgrund*/
 #chooseBackgroundWindow {
 	width: 20em;
-	max-height: 35em;
+	max-height: 25em;
 	overflow: auto;
 	border: outset #ffffff 0.2em;
-	background-color: #FFFACD;
+	background-color: #FFFACf;
 	border-radius: 0.5em;
-	overflow: auto;
 	margin: 0;
 	padding: 0;
 }
@@ -71,11 +70,18 @@ main {
 }
 .imageDivs{
 	display: inline-block;
-	background-color: #f0f0f0;
-	margin: 0.2em;
+	background-color: #13300A;
+	margin: 0.4em;
+	padding: 0.2em;
+	border-radius: 0.2em;
+	border:#ffffff groove 0.1em;
 }
 .imgsToChoose{
-	vertical-align: middle;
+	vertical-align:middle;
+}
+.aAroundImgsToChoose{
+	text-align:center;
+	display:block;
 }
 .footerChooseBackgroundWindow {
 	height: 2em;
