@@ -39,7 +39,7 @@ main {
 }
 
 /*Fönster för att välja bakgrund*/
-#chooseBackgroundWindow {
+.chooseBackgroundWindow {
 	width: 20em;
 	max-height: 25em;
 	overflow: auto;
@@ -48,6 +48,7 @@ main {
 	border-radius: 0.5em;
 	margin: 0;
 	padding: 0;
+	float: left;
 }
 .headerChooseBackgroundWindow{
 	height: 3em;

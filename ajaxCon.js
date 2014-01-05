@@ -8,6 +8,17 @@ function AjaxCon(url, callback) {
 
     var xhr = this.getXHR();
     
+    setTimeout(function(){
+        if(xhr.readyState !== READY_STATE_COMPLETE){
+            console.log("inte laddat än");
+            var delaySpan = $("<span class = 'status'>Hej!</span>");
+            $(".footerChooseBackgroundWindow").append(delaySpan);
+        }
+        else{
+            console.log("laddat");
+        }
+        },2000);
+    
     xhr.onreadystatechange = function(){
         
         if(xhr.readyState === READY_STATE_COMPLETE){
