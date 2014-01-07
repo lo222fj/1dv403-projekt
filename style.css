@@ -14,7 +14,7 @@ main {
 	border-top: groove;
 	height: 3.5em;
 	margin: 0;
-	padding: 0 0.5em 0 0.5em;
+	padding: 0.3em 0em 0em 0.5em;
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -27,7 +27,6 @@ main {
 	padding: 0;
 	margin: 0;
 	vertical-align: middle;
-	border: red inset 2px;
 }
 .iconImg {
 	padding: 0;
@@ -41,7 +40,6 @@ main {
 /*Fönster för att välja bakgrund*/
 .chooseBackgroundWindow {
 	width: 20em;
-	max-height: 25em;
 	overflow: auto;
 	border: outset #ffffff 0.2em;
 	background-color: #FFFACf;
@@ -69,6 +67,9 @@ main {
 	margin-left: 0.3em;
 	vertical-align: top;
 }
+.mainChooseBackgroundWindow{
+	height: 15em;
+}
 .imageDivs{
 	display: inline-block;
 	background-color: #13300A;
@@ -88,5 +89,7 @@ main {
 	height: 2em;
 	background-color: #13300A;
 	border-top: groove;
+	padding: 0.3em 0em 0em 0.5em;
+	clear:both;
 }
 

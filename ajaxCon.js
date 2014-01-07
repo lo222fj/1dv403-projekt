@@ -1,4 +1,4 @@
-function AjaxCon(url, callback) {
+function AjaxCon(url, callback, footerChooseBackground) {
     //Konstanter för status på anrop. Behövs ej. För att jag ska förstå och kunna följa
     var READY_STATE_UNINITIALIZED = 0;
     var READY_STATE_OPENED = 1;
@@ -11,13 +11,16 @@ function AjaxCon(url, callback) {
     setTimeout(function(){
         if(xhr.readyState !== READY_STATE_COMPLETE){
             console.log("inte laddat än");
-            var delaySpan = $("<span class = 'status'>Hej!</span>");
-            $(".footerChooseBackgroundWindow").append(delaySpan);
+            console.log(footerChooseBackground);
+            var delaySpan = $("<span class = 'status'></span>");
+            var ajaxLoad = $("<img src='ajaxLoader.gif'/>");
+            delaySpan.append(ajaxLoad);
+            footerChooseBackground.append(delaySpan);
         }
         else{
             console.log("laddat");
         }
-        },2000);
+        },1500);
     
     xhr.onreadystatechange = function(){
         

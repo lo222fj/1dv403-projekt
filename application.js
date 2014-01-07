@@ -14,7 +14,6 @@ var backgroundChanger = {
             var mainChooseBackground = $("<main class ='mainChooseBackgroundWindow'></main>");
             var footerChooseBackground = $("<footer class='footerChooseBackgroundWindow'></footer>");
 
-
             //lägger ut elementen i DOMen
             $("#masterMain").append(divChooseBackground);
             divChooseBackground.append(headerChooseBackground);
@@ -43,8 +42,9 @@ var backgroundChanger = {
                  Varje a-tag läggs i en div*/
                 for ( i = 0; i < images.length; i += 1) {
                     var thumbSrc = images[i].thumbURL;
+                    var picture = images[i].URL;
                     var a = $("<a class ='aAroundImgsToChoose' href='#' title='Välj som bakgrund'></a>");
-                    var string = "<img class='imgsToChoose' src='" + thumbSrc + "'  />";
+                    var string = "<img class='imgsToChoose' src='" + thumbSrc + "' bigImg ='" + picture + "'  />";
                     //console.log(string);
                     var img = $(string);
                     var divString = "<div class='imageDivs' style='height: " + highestImg + "px ;width: " + widestImg + "px' ></div>";
@@ -54,11 +54,28 @@ var backgroundChanger = {
                     thumbDiv.append(a);
                     a.append(img);
                     mainChooseBackground.append(thumbDiv);
+                    a.click(function(e) {
+                        backgroundChanger.changeBackgroundImage(e);
+                    });
                 }
+                /*Tar bort ladda-symbol om det finns */
+                backgroundChanger.deleteLoadingIcon(footerChooseBackground);
             };
-            new AjaxCon("http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/", callback);
-            
+            new AjaxCon("http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/", callback, footerChooseBackground);
+
         });
+    },
+    deleteLoadingIcon : function(footerChooseBackground) {
+        footerChooseBackground.children().remove();
+    },
+    changeBackgroundImage : function(e) {
+        var background = $("html");
+        var imgTag = e.currentTarget.firstChild;
+        var jQImgTag = $(imgTag);
+        var newSrc = jQImgTag.attr("bigImg");
+        background.css("background-image", "url(" + newSrc + ")");
+        background.css("background-size", "inherit");
+        background.css("background-repeat", "repeat");
     }
 };
 window.onload = function() {
