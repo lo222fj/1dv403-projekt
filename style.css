@@ -67,6 +67,14 @@ main {
 	margin-left: 0.3em;
 	vertical-align: top;
 }
+.aClose{
+	display: block;
+	height: 1.2em;
+	float: right;
+}
+.imgClose{
+	height: inherit;
+}
 .mainChooseBackgroundWindow{
 	height: 15em;
 }
