@@ -11,7 +11,6 @@ function AjaxCon(url, callback, footerChooseBackground) {
     setTimeout(function(){
         if(xhr.readyState !== READY_STATE_COMPLETE){
             console.log("inte laddat än");
-            console.log(footerChooseBackground);
             var delaySpan = $("<span class = 'status'></span>");
             var ajaxLoad = $("<img src='ajaxLoader.gif'/>");
             delaySpan.append(ajaxLoad);

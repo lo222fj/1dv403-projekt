@@ -15,6 +15,7 @@ var backgroundChanger = {
     },
 
     openWindow : function() {
+
         //skapar element för fönster och dess delar
         var divChooseBackground = $("<div class='chooseBackgroundWindow'></div>");
         var headerChooseBackground = $("<header class='headerChooseBackgroundWindow'></header>");
@@ -38,7 +39,25 @@ var backgroundChanger = {
         var that = this;
         aCloseChooseBackground.click(function() {
             that.closeBackgroundWindow(divChooseBackground);
-        })
+        });
+        positionWindow();
+        //PLACERA PÅ ETT BEGÅVAT STÄLLE DÄR MAN KOMMER ÅT DEN!
+        function positionWindow() {
+            var divs = $(".chooseBackgroundWindow");
+            var top = 10;
+            var left = 10;
+
+            divs.each(function(index) {
+                var divJqIndex = $(divs[index]);
+                divJqIndex.css({
+                    top : top,
+                    left : left
+                });
+                top += 30;
+                left += 30;
+            });
+        }
+
         //Läser in json-sträng, parsar och presenterar tumnagelbilder i fönstret
         var callback = function(respons) {
             var images = JSON.parse(respons);
@@ -69,16 +88,16 @@ var backgroundChanger = {
                 thumbDiv.append(a);
                 a.append(img);
                 mainChooseBackground.append(thumbDiv);
-                
-                /*Här inne är "this" beroende på vem som anropar funktionen callback. Vill att det ska vara samma som där jag 
-                tidigare deklarerade "that" tidigare i funktionen*/
+
+                /*Här inne är "this" beroende på vem som anropar funktionen callback. Vill att det ska vara samma som där jag
+                 tidigare deklarerade "that" tidigare i funktionen*/
                 a.click(function(e) {
                     that.changeBackgroundImage(e);
                 });
             }
             /*Tar bort ladda-symbol om det finns */
-            /*Här inne är "this" beroende på vem som anropar funktionen callback. Vill att det ska vara samma som där jag 
-                tidigare deklarerade "that" tidigare i funktionen*/
+            /*Här inne är "this" beroende på vem som anropar funktionen callback. Vill att det ska vara samma som där jag
+             tidigare deklarerade "that" tidigare i funktionen*/
             that.deleteLoadingIcon(footerChooseBackground);
         };
         new AjaxCon("http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/", callback, footerChooseBackground);
