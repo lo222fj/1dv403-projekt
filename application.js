@@ -15,9 +15,9 @@ var backgroundChanger = {
     },
 
     openWindow : function() {
-
         //skapar element för fönster och dess delar
         var divChooseBackground = $("<div class='chooseBackgroundWindow'></div>");
+        console.log(divChooseBackground);       
         var headerChooseBackground = $("<header class='headerChooseBackgroundWindow'></header>");
         var iconChooseBackground = $("<img class='iconChooseBackgroundWindow' src='icon_DSC00846.png'/>");
         var headerTextChooseBackground = $("<span class='headerTextChoosenBackgroundWindow'>Välj bakgrundsbild</span>");
@@ -40,23 +40,11 @@ var backgroundChanger = {
         aCloseChooseBackground.click(function() {
             that.closeBackgroundWindow(divChooseBackground);
         });
-        positionWindow();
-        //PLACERA PÅ ETT BEGÅVAT STÄLLE DÄR MAN KOMMER ÅT DEN!
-        function positionWindow() {
-            var divs = $(".chooseBackgroundWindow");
-            var top = 10;
-            var left = 10;
-
-            divs.each(function(index) {
-                var divJqIndex = $(divs[index]);
-                divJqIndex.css({
-                    top : top,
-                    left : left
-                });
-                top += 30;
-                left += 30;
-            });
-        }
+        this.positionWindow();
+        
+        divChooseBackground.click(function(){
+         that.moveWindowToTop(divChooseBackground);   
+        })
 
         //Läser in json-sträng, parsar och presenterar tumnagelbilder i fönstret
         var callback = function(respons) {
@@ -117,7 +105,31 @@ var backgroundChanger = {
     },
     closeBackgroundWindow : function(divChooseBackground) {
         divChooseBackground.remove();
-    }
+    },
+    moveWindowToTop: function(divChooseBackground){
+        var divs = $(".chooseBackgroundWindow");
+        
+        divs.each(function(index){
+            var divJqIndex = $(divs[index]);
+            divJqIndex.removeClass("front");
+        });
+         divChooseBackground.addClass("front");
+    },
+   positionWindow: function() {
+            var divs = $(".chooseBackgroundWindow");
+            var top = 10;
+            var left = 10;
+
+            divs.each(function(index) {
+                var divJqIndex = $(divs[index]);
+                divJqIndex.css({
+                    top : top,
+                    left : left
+                });
+                top += 30;
+                left += 30;
+            });
+        }
 };
 window.onload = function() {
     backgroundChanger.init();

@@ -48,6 +48,9 @@ main {
 	padding: 0;
 	position: absolute;
 }
+.front{
+	z-index: 100;
+}
 .headerChooseBackgroundWindow{
 	height: 3em;
 	background-color: #13300A;
