@@ -7,34 +7,33 @@ function AjaxCon(url, callback, footerChooseBackground) {
     var READY_STATE_COMPLETE = 4;
 
     var xhr = this.getXHR();
-    
-    setTimeout(function(){
-        if(xhr.readyState !== READY_STATE_COMPLETE){
-            console.log("inte laddat än");
+
+    setTimeout(function() {
+        if (xhr.readyState !== READY_STATE_COMPLETE) {
+            //console.log("inte laddat än");
             var delaySpan = $("<span class = 'status'></span>");
             var ajaxLoad = $("<img src='ajaxLoader.gif'/>");
             delaySpan.append(ajaxLoad);
             footerChooseBackground.append(delaySpan);
         }
-        else{
-            console.log("laddat");
-        }
-        },1500);
-    
-    xhr.onreadystatechange = function(){
-        
-        if(xhr.readyState === READY_STATE_COMPLETE){
-            if(xhr.status >= 200 && xhr.status < 300 || xhr.status === 304){
+        /*else{
+         console.log("laddat");
+         }*/
+    }, 1500);
+
+    xhr.onreadystatechange = function() {
+        //responseText är det som kommer från servern
+        if (xhr.readyState === READY_STATE_COMPLETE) {
+            if (xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
                 callback(xhr.responseText);
-            }
-            else{
-                console.log("Läsfel, status: "+xhr.status);
+            } else {
+                console.log("Läsfel, status: " + xhr.status);
             }
         }
     };
-    
+
     xhr.open("get", url, true);
-    
+
     xhr.send(null);
 }
 

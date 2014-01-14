@@ -13,11 +13,9 @@ var backgroundChanger = {
             that.openWindow();
         });
     },
-
     openWindow : function() {
         //skapar element för fönster och dess delar
         var divChooseBackground = $("<div class='chooseBackgroundWindow'></div>");
-        console.log(divChooseBackground);       
         var headerChooseBackground = $("<header class='headerChooseBackgroundWindow'></header>");
         var iconChooseBackground = $("<img class='iconChooseBackgroundWindow' src='icon_DSC00846.png'/>");
         var headerTextChooseBackground = $("<span class='headerTextChoosenBackgroundWindow'>Välj bakgrundsbild</span>");
@@ -41,54 +39,62 @@ var backgroundChanger = {
             that.closeBackgroundWindow(divChooseBackground);
         });
         this.positionWindow();
-        
-        divChooseBackground.click(function(){
-         that.moveWindowToTop(divChooseBackground);   
-        })
 
+        divChooseBackground.click(function() {
+            that.moveWindowToTop(divChooseBackground);
+        })
         //Läser in json-sträng, parsar och presenterar tumnagelbilder i fönstret
+        //Här anropas callback vid "onreadystate" och skickar då in responstext från Ajax-anrop
         var callback = function(respons) {
             var images = JSON.parse(respons);
-            var i;
 
-            //Hittar högsta höjd och bredd bland tumnagelbilderna
-            var heights = images.map(function(image) {
-                return image.thumbHeight;
-            });
-            var highestImg = Math.max.apply(Math, heights);
-
-            var widths = images.map(function(image) {
-                return image.thumbWidth;
-            });
-            var widestImg = Math.max.apply(Math, widths);
-
-            /*Skapar en img-tag i en a-tag för varje tumnagebild som lästs in med json
-             Varje a-tag läggs i en div*/
-            for ( i = 0; i < images.length; i += 1) {
-                var thumbSrc = images[i].thumbURL;
-                var picture = images[i].URL;
-                var a = $("<a class ='aAroundImgsToChoose' href='#' title='Välj som bakgrund'></a>");
-                var string = "<img class='imgsToChoose' src='" + thumbSrc + "' data-bigImg ='" + picture + "'  />";
-                var img = $(string);
-                var divString = "<div class='imageDivs' style='height: " + highestImg + "px ;width: " + widestImg + "px' ></div>";
-                var thumbDiv = $(divString);
-
-                thumbDiv.append(a);
-                a.append(img);
-                mainChooseBackground.append(thumbDiv);
-
-                /*Här inne är "this" beroende på vem som anropar funktionen callback. Vill att det ska vara samma som där jag
-                 tidigare deklarerade "that" tidigare i funktionen*/
-                a.click(function(e) {
-                    that.changeBackgroundImage(e);
-                });
-            }
-            /*Tar bort ladda-symbol om det finns */
             /*Här inne är "this" beroende på vem som anropar funktionen callback. Vill att det ska vara samma som där jag
              tidigare deklarerade "that" tidigare i funktionen*/
+            var imageDivs = that.makeImageDivs(images);
+            mainChooseBackground.append(imageDivs);
+
+            //Väljer ut alla a-taggar med bilder och kopplar klickevent
+            var as = $(".aAroundImgsToChoose");
+            as.click(function(e) {
+                that.changeBackgroundImage(e);
+            });
+            /*Tar bort ladda-symbol om det finns */
+            /*Här inne är "this" beroende på vem som anropar funktionen callback. Vill att this ska vara samma här som där jag
+             tidigare i funktionen deklarerade "that"*/
             that.deleteLoadingIcon(footerChooseBackground);
         };
         new AjaxCon("http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/", callback, footerChooseBackground);
+    },
+    /*Skapar en img-tag i en a-tag för varje tumnagebild som lästs in med json
+     Varje a-tag läggs i en div*/
+    makeImageDivs : function(images) {
+        //Hittar den högsta höjden bland tumnagelbilderna...
+        var heights = images.map(function(image) {
+            return image.thumbHeight;
+        });
+        var highestImg = Math.max.apply(Math, heights);
+
+        //...och den största bredden bland tumnagelbilderna
+        var widths = images.map(function(image) {
+            return image.thumbWidth;
+        });
+        var widestImg = Math.max.apply(Math, widths);
+
+        var divArray = [];
+        var i;
+        for ( i = 0; i < images.length; i += 1) {
+            var thumbSrc = images[i].thumbURL;
+            var picture = images[i].URL;
+            var a = $("<a class ='aAroundImgsToChoose' href='#' title='Välj som bakgrund'></a>");
+            var jsImg = "<img class='imgsToChoose' src='" + thumbSrc + "' data-bigImg ='" + picture + "'  />";
+            var jQImg = $(jsImg);
+            var jsDiv = "<div class='imageDivs' style='height: " + highestImg + "px ;width: " + widestImg + "px' ></div>";
+            var thumbDiv = $(jsDiv);
+            thumbDiv.append(a);
+            a.append(jQImg);
+            divArray.push(thumbDiv);
+        }
+        return divArray;
     },
 
     deleteLoadingIcon : function(footerChooseBackground) {
@@ -106,30 +112,30 @@ var backgroundChanger = {
     closeBackgroundWindow : function(divChooseBackground) {
         divChooseBackground.remove();
     },
-    moveWindowToTop: function(divChooseBackground){
+    moveWindowToTop : function(divChooseBackground) {
         var divs = $(".chooseBackgroundWindow");
-        
-        divs.each(function(index){
+
+        divs.each(function(index) {
             var divJqIndex = $(divs[index]);
             divJqIndex.removeClass("front");
         });
-         divChooseBackground.addClass("front");
+        divChooseBackground.addClass("front");
     },
-   positionWindow: function() {
-            var divs = $(".chooseBackgroundWindow");
-            var top = 10;
-            var left = 10;
+    positionWindow : function() {
+        var divs = $(".chooseBackgroundWindow");
+        var top = 10;
+        var left = 10;
 
-            divs.each(function(index) {
-                var divJqIndex = $(divs[index]);
-                divJqIndex.css({
-                    top : top,
-                    left : left
-                });
-                top += 30;
-                left += 30;
+        divs.each(function(index) {
+            var divJqIndex = $(divs[index]);
+            divJqIndex.css({
+                top : top,
+                left : left
             });
-        }
+            top += 30;
+            left += 30;
+        });
+    }
 };
 window.onload = function() {
     backgroundChanger.init();
