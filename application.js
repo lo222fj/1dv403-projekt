@@ -44,23 +44,21 @@ var backgroundChanger = {
             that.moveWindowToTop(divChooseBackground);
         })
         //Läser in json-sträng, parsar och presenterar tumnagelbilder i fönstret
-        //Här anropas callback vid "onreadystate" och skickar då in responstext från Ajax-anrop
+        //callback anropas vid "onreadystate" och skickar då in responstext från Ajax-anrop
         var callback = function(respons) {
+            /*I callback är "this" beroende på vem som anropar funktionen callback. 
+             Använder det "that" som deklarerats i den yttre funktionen eftersom jag vill ha samma this som där */
             var images = JSON.parse(respons);
-
-            /*Här inne är "this" beroende på vem som anropar funktionen callback. Vill att det ska vara samma som där jag
-             tidigare deklarerade "that" tidigare i funktionen*/
+            
             var imageDivs = that.makeImageDivs(images);
             mainChooseBackground.append(imageDivs);
 
-            //Väljer ut alla a-taggar med bilder och kopplar klickevent
+            //Kopplar klickevent till alla a-taggar
             var as = $(".aAroundImgsToChoose");
             as.click(function(e) {
                 that.changeBackgroundImage(e);
             });
             /*Tar bort ladda-symbol om det finns */
-            /*Här inne är "this" beroende på vem som anropar funktionen callback. Vill att this ska vara samma här som där jag
-             tidigare i funktionen deklarerade "that"*/
             that.deleteLoadingIcon(footerChooseBackground);
         };
         new AjaxCon("http://homepage.lnu.se/staff/tstjo/labbyServer/imgviewer/", callback, footerChooseBackground);
@@ -79,7 +77,7 @@ var backgroundChanger = {
             return image.thumbWidth;
         });
         var widestImg = Math.max.apply(Math, widths);
-
+        //skapar array och divar med bilder i a-taggar. Divarna läggs i arrayen som returneras
         var divArray = [];
         var i;
         for ( i = 0; i < images.length; i += 1) {
